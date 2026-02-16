@@ -1,0 +1,20 @@
+{
+  "name": "SmartLogger",
+  "version": "1.0.0",
+  "description": "Simple Serial and WiFi logger for ESP32 debugging.",
+  "keywords": "wifi, serial, debug, logger",
+  "headers": "SmartLogger.h",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/MarusGradinaru/Smart-Logger.git"
+  },
+  "authors":
+  {
+    "name": "Marus Alexander",
+    "email": "marus.gradinaru@gmail.com",
+    "maintainer": true
+  },
+  "frameworks": "arduino",
+  "platforms": "espressif32"
+}
