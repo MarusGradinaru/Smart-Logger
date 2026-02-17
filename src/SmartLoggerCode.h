@@ -29,6 +29,7 @@ class SmartLogger {
     #ifdef USE_WIFI_LOGGER
       bool startWifi(const char* serverIp, uint16_t serverPort);
       void LogIP(const char* fmt, IPAddress ip);
+      inline void resetWifiFailures() { wfail = 0; }
     #endif
 
   private:
@@ -44,6 +45,7 @@ class SmartLogger {
       const char* servIp;
       uint16_t servPort;
       bool wifiStarted = false;
+      uint8_t wfail = 0;
     #endif
     
     StaticSemaphore_t mutexBuffer;

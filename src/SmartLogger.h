@@ -20,10 +20,12 @@
     #define DebugWBlock(block)          block
     #define StartWifiLogger(ip, port)   Debug.startWifi(ip, port)
     #define PrintIp(fmt, ip)            Debug.LogIP(fmt, ip)
+    #define ResetWiFiLogger()           Debug.resetWifiFailures() 
   #else
     #define DebugWBlock(block)          ((void)0)
     #define StartWifiLogger(ip, port)   ((void)0)
     #define PrintIp(fmt, ip)            ((void)0)
+    #define ResetWiFiLogger()           ((void)0)
   #endif
 
   #define DebugBlock(block)             block
@@ -71,10 +73,5 @@
   #define PrintRReason(fmt, reason)     ((void)0) 
   #define PrintFirmInfo(head, ver)      ((void)0)
 
-  #define ListPartitions()              ((void)0)
-  #define ListDir(fs, dir, lvl)         ((void)0) 
-
 #endif  
 
-// TO DO:
-//  - make WiFi logger deactivate itself after 3 unsuccessful attempts and add a method to reactivate it manually

@@ -2,6 +2,7 @@
 #include <esp_ota_ops.h>
 #ifdef USE_WIFI_LOGGER
   #include <WiFi.h>
+  #define WIFI_LOGGER_RETRY_COUNT 2  // after "this" failed atempts, the wifi logger is disabled
 #endif
 
 //-------------- Common Public -------------------
@@ -152,9 +153,9 @@ void SmartLogger::LogIP(const char* fmt, IPAddress ip) {
 
 bool SmartLogger::tcpSend(const char* data, size_t len, bool newLine) {
   if (!newLine && (data == nullptr || len == 0)) return true;
-  if (WiFi.status() != WL_CONNECTED) return false;
+  if (WiFi.status() != WL_CONNECTED || wfail >= WIFI_LOGGER_RETRY_COUNT) return false;
   WiFiClient client;
-  if (!client.connect(servIp, servPort, 300)) return false;
+  if (!client.connect(servIp, servPort, 300)) { wfail++; return false; }
   bool result = true;
   if (data != nullptr && len > 0)
     result = result && (client.write(data, len) == len); 
@@ -164,9 +165,9 @@ bool SmartLogger::tcpSend(const char* data, size_t len, bool newLine) {
 }
 
 bool SmartLogger::tcpSendBuff(const uint8_t* buff, size_t len, bool newLine) {
-  if (WiFi.status() != WL_CONNECTED) return false;
+  if (WiFi.status() != WL_CONNECTED || wfail >= WIFI_LOGGER_RETRY_COUNT) return false;
   WiFiClient client;
-  if (!client.connect(servIp, servPort, 300)) return false;
+  if (!client.connect(servIp, servPort, 300)) { wfail++; return false; }
   bool result = (client.write("[") == 1);
   if (result && buff != nullptr && len > 0) {
     uint8_t bout[5] = "00, ", bsize = 4;
