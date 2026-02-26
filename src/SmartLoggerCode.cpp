@@ -69,7 +69,7 @@ bool SmartLogger::LogBuff(const uint8_t* buffer, size_t len, bool newLine) {
 
 bool SmartLogger::LogFirmInfo(const char* head, const char* ver) {
   const esp_partition_t* run_part = esp_ota_get_running_partition();
-  return LogF("%s Running firmware version %s from \"%s\" partition.", true, head, ver, run_part->label);
+  return LogF("%s Running firmware %s from \"%s\" partition.", true, head, ver, run_part->label);
 }
 
 
@@ -81,13 +81,13 @@ const char* SmartLogger::RReasonToStr(esp_reset_reason_t reason) {
     case ESP_RST_EXT:        return "External pin";
     case ESP_RST_SW:         return "Soft reset";
     case ESP_RST_PANIC:      return "Panic !";
-    case ESP_RST_INT_WDT:    return "Interrupt watchdog";
+    case ESP_RST_INT_WDT:    return "Intr watchdog";
     case ESP_RST_TASK_WDT:   return "Task watchdog";
     case ESP_RST_WDT:        return "Other watchdogs";
     case ESP_RST_DEEPSLEEP:  return "Deep sleep exit";
     case ESP_RST_BROWNOUT:   return "Brownout reset";
     case ESP_RST_SDIO:       return "SDIO reset";
-    case ESP_RST_USB:        return "USB peripheral reset";
+    case ESP_RST_USB:        return "USB reset";
     case ESP_RST_JTAG:       return "JTAG reset";
     case ESP_RST_EFUSE:      return "eFuse error";
     case ESP_RST_PWR_GLITCH: return "Power glitch";
